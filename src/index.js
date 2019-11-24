@@ -1,35 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+// import Spreadsheet from './components/Spreadsheet/Spreadsheet'
+import Vertical from './components/Vertical/Vertical'
+import * as serviceWorker from './serviceWorker'
 
 const week = {
   timeStart: Date.now(),
   template_ref: "workout",
-  sun: ["bench #push", "weighted carries #posterior", "ropes"],
   mon: ["squat #legs"],
-  tue: ["overhead pin press #push", "weighted pull-ups #pull"],
-  wed: ["bench #push", "weighted carries #posterior"],
-  thu: ["squat #legs", "pendley row #pull"],
-  fri: [],
-  sat: ["overhead pin press #push", "weighted pull-ups #pull"],
+  tue: [],
+  wed: ["farmers walk #posterior"],
+  thu: [],
+  fri: ["overhead pin press #push", "pull-ups #pull", "ropes"],
+  sat: ["squat #legs", "bench #push"],
+  sun: ["farmers walk #posterior", "Y pulls #pull", "ropes"],
 }
 const template = {
   name: "workout",
   columns: [
     {
-      name: "main",
+      name: "Primary",
       type: "list",
       data_source: "lifts",
     },
     {
-      name: "sub",
+      name: "Secondary",
       type: "list",
       data_source: "lifts",
     },
     {
-      name: "cardio",
+      name: "Cardio",
       type: "list",
       data_source: "cardio",
     },
@@ -46,7 +47,7 @@ const dataSource = {
 }
 
 ReactDOM.render(
-  <App week={week} template={template} dataSource={dataSource} />,
+  <Vertical week={week} template={template} dataSource={dataSource} />,
   document.getElementById('root')
 )
 
