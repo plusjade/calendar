@@ -21,9 +21,10 @@ export default {
     // minHeight: '15vh',
     display: 'flex',
     flexDirection: 'column',
-    // alignItems: 'center',
-    borderBottom: '1px solid #9e9e9e',
+    borderBottom: '1px solid #e0e0e0',
     backgroundColor: '#FFF',
+    margin: '5px 10px',
+    borderRadius: 5,
   },
   entryTable: {
     borderSpacing: 12,
