@@ -29,6 +29,9 @@ export default {
   entryTable: {
     borderSpacing: 12,
   },
+  entryText: {
+    minWidth: 200,
+  },
   th: {
     textAlign: 'left',
     minWidth: 240,
