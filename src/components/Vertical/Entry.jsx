@@ -2,7 +2,6 @@ import { observer } from "mobx-react"
 import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
 import Hammer from 'react-hammerjs'
 import style from './style'
 
@@ -42,15 +41,11 @@ class Entry extends Component {
       <Hammer onTap={this.onTap}>
         <tr style={style.tr} key={category_name}>
           <td style={style.td}>
-
               <div>{category_name}</div>
-
           </td>
           <td style={style.td}>
             <div style={style.entryText}>
               <div>{text}</div>
-              <div>{id || ''}</div>
-              <div>{category_id || ''}</div>
             </div>
           </td>
           <td style={style.td}>

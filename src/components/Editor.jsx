@@ -3,19 +3,16 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
+import EnterText from './EnterText/EnterText'
 
 const style = {
   default: {
     position: 'fixed',
     bottom: 0,
-    // height: '90vh',
-    backgroundColor: '#CCC',
-    overflow: 'hidden',
     width: '100vw',
     zIndex: 2000,
     display: 'flex',
     flexDirection: 'column',
-    borderRadius: '10px 10px 0 0',
     justifyContent: 'flex-end',
     transition: "transform 180ms ease-in-out",
     transform: 'translateY(100%)',
@@ -24,10 +21,24 @@ const style = {
     transform: 'translateY(0)',
   },
   inner: {
-    // background: '#FFF',
+    backgroundColor: '#CCC',
+    borderRadius: '10px 10px 0 0',
+    minHeight: '20vh',
+    maxHeight: '95vh',
     padding: 10,
-    height: '20vh'
-  }
+  },
+  close: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  closeInner: {
+    padding: 10,
+    fontSize: 20,
+    borderRadius: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }
 
 class Editor extends Component {
@@ -37,35 +48,72 @@ class Editor extends Component {
     }).isRequired,
   }
 
-  // componentDidMount() {
-  //   setTimeout(() => {
-  //     this.props.editor.isActive = true
-  //   }, 3000)
-  // }
   handleClose = () => {
     this.props.editor.entry = null
+  }
+
+  onEnterText = (value) => {
+    if (value) {
+      this.onChangeText(value)
+    }
+
+    this.handleClose()
+  }
+
+  onChangeText = (value) => {
+    this.props.editor.entry.text = value || ''
+  }
+
+  onEnterTags = (value) => {
+    if (value) {
+      this.onChangeTags(value)
+    }
+
+    this.handleClose()
+  }
+
+  onChangeTags = (value) => {
+    this.props.editor.entry.tags = (value || '').split(' ')
   }
 
   render() {
     const { entry } = this.props.editor
     const { text, tags, category_name, id, category_id } = entry || {}
-
     const isActive = entry ? style.isActive : {}
     const css = {...style.default, ...isActive}
-    console.log('entry', entry)
+
     return (
       <div style={css}>
-        <div style={{textAlign: 'right', padding: 10}}>
+        <div>
           <Hammer onTap={this.handleClose}>
-            <div style={{fontSize: 20}}>❌</div>
+            <div style={style.close}><div style={style.closeInner}>❌</div></div>
           </Hammer>
         </div>
         <div style={style.inner}>
           {entry && (
             <div>
-              <div>{category_name}</div>
-              <div>{entry.text}</div>
-              <div>{entry.tags}</div>
+              <div>id: {id || ''}</div>
+              <div>category_id: {category_id || ''}</div>
+              <div>category_name: {category_name}</div>
+              <div>
+                <EnterText
+                  value={tags.join(' ')}
+                  onSubmit={this.onEnterTags}
+                  onChange={this.onChangeTags}
+                  placeholder={'tags'}
+                  isActive
+                />
+              </div>
+
+              <div>
+                <EnterText
+                  value={entry.text}
+                  onSubmit={this.onEnterText}
+                  onChange={this.onChangeText}
+                  placeholder={'enter a text description'}
+                  isActive
+                />
+              </div>
             </div>
           )}
         </div>
