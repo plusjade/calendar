@@ -11,7 +11,11 @@ class WeekObject {
   id = null
 
   constructor({ categoriesObjects = {}, entriesObjects = {} } = {}) {
-    this.categoriesObjects = categoriesObjects
+    this.categoriesObjects = observable.map(
+      Object.keys(categoriesObjects).map(key => {
+        return [key, observable(categoriesObjects[key])]
+      })
+    )
     this.entriesObjects = observable.map(
       Object.keys(entriesObjects).map(key => {
         return [key, observable(entriesObjects[key])]
@@ -23,6 +27,12 @@ class WeekObject {
       console.log('autorun!', entriesObjects)
     })
   }
+
+  getCategory = id => this.categoriesObjects.get(id)
+
+  getCategories = () => (
+    Array.from(this.categoriesObjects.keys()).map(id => this.getCategory(id))
+  )
 
   getEntry = id => this.entriesObjects.get(id)
 
@@ -55,8 +65,8 @@ class WeekObject {
     return (
       DAYS.map(day_name => {
         const entriesListForDay = daysDict[day_name] || []
-        const entries = Object.values(this.categoriesObjects).map(({ name, id }) => {
-          const entryId = entriesListForDay.find(entryId => this.entriesObjects.get(entryId).category_id === id)
+        const entries = this.getCategories().map(({ name, id }) => {
+          const entryId = entriesListForDay.find(entryId => this.getEntry(entryId).category_id === id)
           const entry = entryId
             ? this.entriesObjects.get(entryId)
             : observable({ tags: [], text: '' , id: token(), category_id: id })
@@ -72,7 +82,7 @@ class WeekObject {
 
   entriesListByDay = () => (
     Array.from(this.entriesObjects.keys()).reduce((memo, key) => {
-      const { day_id } = this.entriesObjects.get(key)
+      const { day_id } = this.getEntry(key)
 
       if (memo[day_id]) {
         memo[day_id] = [...memo[day_id], key]

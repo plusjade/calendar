@@ -11,34 +11,6 @@ import CategoryObject from './objects/CategoryObject'
 import EntryObject from './objects/EntryObject'
 import WeekObject from './objects/WeekObject'
 
-const dataSource = {
-  name: "lifts",
-  values: {
-    pull: ["farmers carry", "pull ups", "pull-ups weighted"],
-    push: ["bench", "overhead pin-press"],
-    posterior: ["deadlift"],
-  }
-}
-const template = {
-  name: "workout",
-  columns: [
-    {
-      name: "Primary",
-      type: "list",
-      data_source: "lifts",
-    },
-    {
-      name: "Secondary",
-      type: "list",
-      data_source: "lifts",
-    },
-    {
-      name: "Cardio",
-      type: "list",
-      data_source: "cardio",
-    },
-  ]
-}
 const categoriesDB = [
   {
     name: "Primary",
