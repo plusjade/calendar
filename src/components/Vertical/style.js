@@ -52,9 +52,10 @@ export default {
   },
   hashtag: {
     padding: '2px 4px',
-    backgroundColor: '#757575',
+    border: '1px dashed #9E9E9E',
     borderRadius: 3,
     margin: '0 3px',
+    fontSize: 12,
   },
   dayHeading: {
     fontWeight: 'bold',
@@ -63,25 +64,26 @@ export default {
     color: '#616161',
   },
   entryCard: {
-    margin: '5px 0 5px 5px',
+    margin: '5px 10px',
     display: 'flex',
-    overflow: 'scroll',
-    backgroundColor: '#424242',
+    //flexDirection: 'column',
+    backgroundColor: '#EEEEEE',
+    borderRadius: 10,
   },
   entryRow: {
     flex: 1,
-    minWidth: '25vw',
-    // border: '1px solid red',
     boxSizing: 'border-box',
-    padding: 10,
-    marginRight: 5,
   },
   categoryRow: {
-    backgroundColor: '#212121', color: '#616161',
+    padding: 10,
   },
   TextRow: {
+    flex: 2,
+    padding: 10,
   },
   TagsRow: {
+    marginTop: 5,
+    // padding: 10,
   },
 
 }

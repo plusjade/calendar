@@ -20,11 +20,12 @@ const style = {
     transform: 'translateY(0)',
   },
   inner: {
-    backgroundColor: '#CCC',
+    backgroundColor: '#212121',
     borderRadius: '10px 10px 0 0',
     minHeight: '20vh',
     maxHeight: '95vh',
     padding: 10,
+    color: '#EEEEEE',
   },
   close: {
     display: 'flex',
@@ -96,19 +97,19 @@ class Editor extends Component {
               <div>category_name: {category_name}</div>
               <div>
                 <EnterText
-                  value={tags.join(' ')}
-                  onSubmit={this.onEnterTags}
-                  onChange={this.onChangeTags}
-                  placeholder={'tags'}
+                  value={entry.text}
+                  onSubmit={this.onEnterText}
+                  onChange={this.onChangeText}
+                  placeholder={'enter a text description'}
                   isActive
                 />
               </div>
               <div>
                 <EnterText
-                  value={entry.text}
-                  onSubmit={this.onEnterText}
-                  onChange={this.onChangeText}
-                  placeholder={'enter a text description'}
+                  value={tags.join(' ')}
+                  onSubmit={this.onEnterTags}
+                  onChange={this.onChangeTags}
+                  placeholder={'tags'}
                   isActive
                 />
               </div>

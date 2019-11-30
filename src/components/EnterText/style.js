@@ -3,6 +3,7 @@ export default {
     position: "relative",
     width: "100%",
     display: "none",
+    color: 'inherit',
   },
   isActive: {
     display: "block",
@@ -16,6 +17,7 @@ export default {
     borderRadius: 0,
     borderWidth: 0,
     fontSize: 16,
+    color: 'inherit',
     // fontWeight: 600,
     fontFamily: "inherit",
     padding: "20px 70px 20px 10px",
