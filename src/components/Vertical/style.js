@@ -16,30 +16,15 @@ export default {
     justifyContent: 'center',
     width: '100%',
   },
-  entryWrap: {
+  dayCard: {
     flex: 1,
     // minHeight: '15vh',
     display: 'flex',
     flexDirection: 'column',
     // borderBottom: '1px solid #e0e0e0',
     // backgroundColor: '#FFF',
-    margin: '5px 10px',
+    // margin: '5px 10px',
     borderRadius: 5,
-  },
-  entryTable: {
-
-  },
-  entryText: {
-    minWidth: 200,
-  },
-  th: {
-    textAlign: 'left',
-    minWidth: 240,
-  },
-  td: {
-    // minWidth: 240,
-    // border: '1px solid #e0e0e0',
-    verticalAlign: 'top',
   },
   dayPanel: {
     height: '96vh',
@@ -65,35 +50,38 @@ export default {
     transformOrigin: '-25px',
     color: '#616161',
   },
-  input: {
-    border: 0,
-    // borderBottom: '1px dashed #757575',
-    boxSizing: 'border-box',
-    // padding: '8px 8px 8px 0',
-    // borderRadius: 5,
-  },
-  tagsWrap: {
-  },
   hashtag: {
     padding: '2px 4px',
-    backgroundColor: '#eeeeee',
+    backgroundColor: '#757575',
     borderRadius: 3,
+    margin: '0 3px',
   },
   dayHeading: {
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'uppercase',
-    color: '#E0E0E0',
+    color: '#616161',
   },
   entryCard: {
-    backgroundColor: '#E0E0E0',
-    padding: 10,
-    margin: 5,
-    borderRadius: 7,
+    margin: '5px 0 5px 5px',
     display: 'flex',
+    overflow: 'scroll',
+    backgroundColor: '#424242',
   },
   entryRow: {
     flex: 1,
-    margin: '0 5px',
+    minWidth: '25vw',
+    // border: '1px solid red',
+    boxSizing: 'border-box',
+    padding: 10,
+    marginRight: 5,
   },
+  categoryRow: {
+    backgroundColor: '#212121', color: '#616161',
+  },
+  TextRow: {
+  },
+  TagsRow: {
+  },
+
 }

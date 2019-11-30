@@ -35,7 +35,7 @@ class Week extends Component {
         <EditorRoot editor={this.editor} />
         <div style={style.entriesPanel}>
           {week.days().map(({ day_name, entries }) => (
-            <div key={day_name} style={style.entryWrap}>
+            <div key={day_name} style={style.dayCard}>
               <div style={style.dayHeading}>{day_name}</div>
               {entries.map(entry => (
                 <Entry entry={entry} key={entry.id} editor={this.editor} />
