@@ -33,23 +33,13 @@ class Week extends Component {
     return (
       <div style={style.app}>
         <EditorRoot editor={this.editor} />
-
         <div style={style.entriesPanel}>
-          <div>
-            {week.getCategories().map(({ name, id }) => (
-              <div>{name}</div>
-            ))}
-          </div>
           {week.days().map(({ day_name, entries }) => (
             <div key={day_name} style={style.entryWrap}>
               <div style={style.dayHeading}>{day_name}</div>
-              <table style={style.entryTable}>
-                <tbody>
-                  {entries.map(entry => (
-                    <Entry entry={entry} key={entry.id} editor={this.editor} />
-                  ))}
-                </tbody>
-              </table>
+              {entries.map(entry => (
+                <Entry entry={entry} key={entry.id} editor={this.editor} />
+              ))}
             </div>
           ))}
         </div>

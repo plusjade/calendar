@@ -21,13 +21,13 @@ export default {
     // minHeight: '15vh',
     display: 'flex',
     flexDirection: 'column',
-    borderBottom: '1px solid #e0e0e0',
-    backgroundColor: '#FFF',
+    // borderBottom: '1px solid #e0e0e0',
+    // backgroundColor: '#FFF',
     margin: '5px 10px',
     borderRadius: 5,
   },
   entryTable: {
-    borderSpacing: 12,
+
   },
   entryText: {
     minWidth: 200,
@@ -83,5 +83,17 @@ export default {
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'uppercase',
+    color: '#E0E0E0',
+  },
+  entryCard: {
+    backgroundColor: '#E0E0E0',
+    padding: 10,
+    margin: 5,
+    borderRadius: 7,
+    display: 'flex',
+  },
+  entryRow: {
+    flex: 1,
+    margin: '0 5px',
   },
 }

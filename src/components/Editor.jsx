@@ -1,6 +1,5 @@
 import { observer } from "mobx-react"
 import React, { Component } from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
 import EnterText from './EnterText/EnterText'
@@ -104,7 +103,6 @@ class Editor extends Component {
                   isActive
                 />
               </div>
-
               <div>
                 <EnterText
                   value={entry.text}

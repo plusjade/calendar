@@ -39,16 +39,16 @@ class Entry extends Component {
 
     return (
       <Hammer onTap={this.onTap}>
-        <tr style={style.tr} key={category_name}>
-          <td style={style.td}>
+        <div style={style.entryCard}>
+          <div style={style.entryRow}>
               <div>{category_name}</div>
-          </td>
-          <td style={style.td}>
+          </div>
+          <div style={style.entryRow}>
             <div style={style.entryText}>
               <div>{text}</div>
             </div>
-          </td>
-          <td style={style.td}>
+          </div>
+          <div style={style.entryRow}>
             <div style={style.tagsWrap}>
               {tags.map(tag => (
                 <span style={style.hashtag} key={tag}>
@@ -56,8 +56,8 @@ class Entry extends Component {
                 </span>
               ))}
             </div>
-          </td>
-        </tr>
+          </div>
+        </div>
       </Hammer>
     )
   }
