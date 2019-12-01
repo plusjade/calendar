@@ -21,6 +21,11 @@ export default {
     margin: '0 3px',
     fontSize: 12,
   },
+  tab: {
+    fontWeight: 'bold',
+    padding: 10,
+    color: '#616161',
+  },
   listHeading: {
     fontWeight: 'bold',
     padding: 10,

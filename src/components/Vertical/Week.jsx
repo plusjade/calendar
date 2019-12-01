@@ -4,37 +4,19 @@ import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
-import CategoryObject from '../../objects/CategoryObject'
+import CategoriesList from '../CategoriesList/CategoriesList'
 import EditorRoot from '../EditorRoot'
+import EntriesList from './EntriesList'
 import Entry from './Entry'
 import style from './style'
-
-
-const Category = observer(props => {
-  const { category, editor } = props
-  const text = category ? category.name : <span>➕</span>
-  const onTap = () => {
-    if (category) {
-      editor.activeObject = category
-    } else {
-      const newCat = CategoryObject()
-      editor.activeObject = newCat
-    }
-  }
-
-  return (
-    <Hammer onTap={onTap}>
-      <div style={{ ...style.entryCard, padding: 10 }}>
-        {text}
-      </div>
-    </Hammer>
-  )
-})
-
 
 class Week extends Component {
   static propTypes = {
     week: PropTypes.object.isRequired,
+  }
+
+  state = {
+    activeTab: 'categories',
   }
 
   constructor(props) {
@@ -51,34 +33,35 @@ class Week extends Component {
     )
   }
 
+  handleToggleCategories = () => {
+    this.setState({activeTab: 'categories'})
+  }
+
+  handleToggleWeek = () => {
+    this.setState({activeTab: 'week'})
+  }
 
   render() {
     const { week } = this.props
 
     return (
-      <div style={style.app}>
+      <div>
         <EditorRoot editor={this.editor} week={week} />
+        <div style={{display: 'flex'}}>
+          <Hammer onTap={this.handleToggleCategories}>
+            <div style={style.tab}>Categories</div>
+          </Hammer>
+          <Hammer onTap={this.handleToggleWeek}>
+            <div style={style.tab}>Week</div>
+          </Hammer>
+        </div>
         <div style={style.listWrap}>
-          <div style={style.listHeading}>Categories</div>
-          {week.getCategories().map(category =>
-            <Category
-              key={category.id}
-              category={category}
-              editor={this.editor}
-            />
+          {this.state.activeTab === 'categories' && (
+            <CategoriesList week={week} editor={this.editor} />
           )}
-          <div style={style.entryCard}>
-            <Category editor={this.editor} />
-          </div>
-
-          {week.days().map(({ day_name, entries }) => (
-            <div key={day_name} style={style.dayCard}>
-              <div style={style.listHeading}>{day_name}</div>
-              {entries.map(entry => (
-                <Entry entry={entry} key={entry.id} editor={this.editor} />
-              ))}
-            </div>
-          ))}
+          {this.state.activeTab === 'week' && (
+            <EntriesList week={week} editor={this.editor} />
+          )}
         </div>
       </div>
     )
