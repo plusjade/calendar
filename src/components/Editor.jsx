@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
 import EnterText from './EnterText/EnterText'
+import EditCategoryObject from './EditCategoryObject'
 
 const style = {
   default: {
@@ -44,12 +45,12 @@ const style = {
 class Editor extends Component {
   static propTypes = {
     editor: PropTypes.shape({
-      entry: PropTypes.object,
+      activeObject: PropTypes.object,
     }).isRequired,
   }
 
   handleClose = () => {
-    this.props.editor.entry = null
+    this.props.editor.activeObject = null
   }
 
   onEnterText = (value) => {
@@ -61,7 +62,7 @@ class Editor extends Component {
   }
 
   onChangeText = (value) => {
-    this.props.editor.entry.text = value || ''
+    this.props.editor.activeObject.text = value || ''
   }
 
   onEnterTags = (value) => {
@@ -73,13 +74,18 @@ class Editor extends Component {
   }
 
   onChangeTags = (value) => {
-    this.props.editor.entry.tags = (value || '').split(' ')
+    this.props.editor.activeObject.tags = (value || '').split(' ')
   }
 
   render() {
-    const { entry } = this.props.editor
-    const { text, tags, category_name, id, category_id } = entry || {}
-    const isActive = entry ? style.isActive : {}
+    console.log('editor render')
+    const { activeObject = {} } = this.props.editor
+    const entry = activeObject && activeObject.type === 'EntryObject' ? activeObject : null
+    const category = activeObject && activeObject.type === 'CategoryObject' ? activeObject : null
+
+    const { text, tags, category: { name } = {}, id, category_id } = entry || {}
+
+    const isActive = entry || category ? style.isActive : {}
     const css = {...style.default, ...isActive}
 
     return (
@@ -90,11 +96,12 @@ class Editor extends Component {
           </Hammer>
         </div>
         <div style={style.inner}>
+          {category && <EditCategoryObject category={category} />}
           {entry && (
             <div>
               <div>id: {id || ''}</div>
               <div>category_id: {category_id || ''}</div>
-              <div>category_name: {category_name}</div>
+              <div>name: {name}</div>
               <div>
                 <EnterText
                   value={entry.text}

@@ -10,38 +10,29 @@ class Entry extends Component {
     entry: PropTypes.shape({
       id: PropTypes.string.isRequired,
       category_id: PropTypes.string.isRequired,
-      category_name: PropTypes.string.isRequired,
+      category: PropTypes.object.isRequired,
       text: PropTypes.string.isRequired,
       tags: PropTypes.array.isRequired,
     }).isRequired,
     editor: PropTypes.shape({
-      isActive: PropTypes.bool.isRequired,
-      activeEntry: PropTypes.object,
+      activeObject: PropTypes.object,
     }).isRequired,
   }
 
-  componentDidMount() {
-    // setTimeout(() => {
-    //   this.props.entry.text = this.props.entry.text + ' 🥝 '
-    //   this.props.entry.tags = [...this.props.entry.tags, '🐻 ']
-    // }, 2500)
-  }
-
   onTap = () => {
-    console.log('tapped!')
     const { entry, editor } = this.props
-    editor.entry = entry
+    editor.activeObject = entry
   }
 
   render() {
     console.log('Entry render')
-    const { text, tags, category_name, id, category_id } = this.props.entry
+    const { text, tags, category: { name }, id, category_id } = this.props.entry
 
     return (
       <Hammer onTap={this.onTap}>
         <div style={style.entryCard}>
           <div style={{...style.entryRow, ...style.categoryRow}}>
-              <div>{category_name}</div>
+            <div>{name}</div>
           </div>
           <div style={{...style.entryRow, ...style.TextRow}}>
             <div style={style.entryText}>

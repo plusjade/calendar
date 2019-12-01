@@ -14,17 +14,17 @@ import WeekObject from './objects/WeekObject'
 const categoriesDB = [
   {
     name: "Primary",
-    type: "list",
+    data_type: "list",
     data_source: "lifts",
   },
   {
     name: "Secondary",
-    type: "list",
+    data_type: "list",
     data_source: "lifts",
   },
   {
     name: "Cardio",
-    type: "list",
+    data_type: "list",
     data_source: "cardio",
   },
 ]

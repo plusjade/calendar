@@ -3,7 +3,6 @@ import { token } from '../lib/actions'
 import EntryObject from './EntryObject'
 
 const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
-// const HASHTAG_REGEX = /#(\w+)/g
 
 class WeekObject {
   entriesObjects = {}
@@ -21,11 +20,19 @@ class WeekObject {
         return [key, observable(entriesObjects[key])]
       })
     )
-    console.log({ entriesObjects: this.entriesObjects, categoriesObjects })
+    console.log({ entriesObjects: this.entriesObjects, categoriesObjects: this.categoriesObjects })
 
     autorun(() => {
       console.log('autorun!', entriesObjects)
     })
+  }
+
+  addCategory = category => {
+    if (category.type === 'CategoryObject') {
+      this.categoriesObjects.set(category.id, category)
+    } else {
+      throw new Error
+    }
   }
 
   getCategory = id => this.categoriesObjects.get(id)
@@ -65,12 +72,13 @@ class WeekObject {
     return (
       DAYS.map(day_name => {
         const entriesListForDay = daysDict[day_name] || []
-        const entries = this.getCategories().map(({ name, id }) => {
+        const entries = this.getCategories().map(category => {
+          const { id } = category
           const entryId = entriesListForDay.find(entryId => this.getEntry(entryId).category_id === id)
           const entry = entryId
             ? this.entriesObjects.get(entryId)
-            : observable({ tags: [], text: '' , id: token(), category_id: id })
-          entry.category_name = name
+            : EntryObject({ category_id: id })
+          entry.category = category
 
           return entry
         })
@@ -85,9 +93,9 @@ class WeekObject {
       const { day_id } = this.getEntry(key)
 
       if (memo[day_id]) {
-        memo[day_id] = [...memo[day_id], key]
+        memo = { ...memo, [day_id]: [...memo[day_id], key] }
       } else {
-        memo[day_id] = [key]
+        memo = { ...memo, [day_id]: [key] }
       }
 
       return memo

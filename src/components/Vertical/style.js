@@ -3,14 +3,7 @@ export default {
     display: 'flex',
     width: '100%',
   },
-  headerWrap: {
-    height: '4vh',
-  },
-  headerTable: {
-    borderSpacing: 12,
-    marginLeft: 35,
-  },
-  entriesPanel: {
+  listWrap: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -18,37 +11,8 @@ export default {
   },
   dayCard: {
     flex: 1,
-    // minHeight: '15vh',
     display: 'flex',
     flexDirection: 'column',
-    // borderBottom: '1px solid #e0e0e0',
-    // backgroundColor: '#FFF',
-    // margin: '5px 10px',
-    borderRadius: 5,
-  },
-  dayPanel: {
-    height: '96vh',
-    width: 30,
-    position: 'fixed',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    pointerEvents: 'none',
-    backgroundColor: '#f5f5f5',
-  },
-  dayWrap: {
-    flex: 1,
-    width: '100%',
-    display: 'flex',
-  },
-  dayText: {
-    fontWeight: 'bold',
-    fontSize: 10,
-    textTransform: 'uppercase',
-    transform: 'rotate(90deg) translate(-40px,0px)',
-    transformOrigin: '-25px',
-    color: '#616161',
   },
   hashtag: {
     padding: '2px 4px',
@@ -57,7 +21,7 @@ export default {
     margin: '0 3px',
     fontSize: 12,
   },
-  dayHeading: {
+  listHeading: {
     fontWeight: 'bold',
     padding: 10,
     textTransform: 'uppercase',
@@ -85,5 +49,4 @@ export default {
     marginTop: 5,
     // padding: 10,
   },
-
 }
