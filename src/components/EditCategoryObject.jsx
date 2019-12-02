@@ -13,16 +13,23 @@ class EditCategoryObject extends Component {
     }).isRequired,
   }
 
-  onEnterText = (value) => {
-    if (value) {
-      this.onChangeText(value)
-    }
-
-    this.handleClose()
+  state = {
+    name: ''
   }
 
-  onChangeText = (value) => {
-    this.props.category.name = value || ''
+  componentDidMount() {
+    this.setState({ name: this.props.category.name })
+  }
+
+  onEnterText = value => {
+    const { category, editor } = this.props
+    if (value) {
+      category.name = value || ''
+    }
+  }
+
+  onChangeText = value => {
+    this.setState({ name: value })
   }
 
   render() {
@@ -31,15 +38,13 @@ class EditCategoryObject extends Component {
     return (
       <div>
         <div>id: {category.id || ''}</div>
-        <div>
-          <EnterText
-            value={category.name}
-            onSubmit={this.onEnterText}
-            onChange={this.onChangeText}
-            placeholder={'name'}
-            isActive
-          />
-        </div>
+        <EnterText
+          value={this.state.name}
+          onSubmit={this.onEnterText}
+          onChange={this.onChangeText}
+          placeholder={'name'}
+          isActive
+        />
       </div>
     )
   }
