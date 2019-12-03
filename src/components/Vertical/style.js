@@ -27,12 +27,13 @@ export default {
     marginTop: 5,
   },
   listHeadingText: {
-    fontWeight: 'bold',
+    // fontWeight: 'bold',
     textTransform: 'uppercase',
-    color: '#616161',
+    color: '#9E9E9E',
     padding: '4px 10px',
-    backgroundColor: '#BDBDBD',
-    borderRadius: '5px 0 0 5px',
+    // backgroundColor: '#BDBDBD',
+    // borderRadius: '5px 0 0 5px',
+    borderBottom: '1px solid #9E9E9E',
   },
   entryCard: {
   },
@@ -42,16 +43,18 @@ export default {
     flexDirection: 'column',
   },
   categoryRow: {
-    marginTop: 7,
+    margin: '7px 0',
     fontSize: 10,
-    fontWeight: 'bold',
-    padding: '2px 10px 2px 10px',
-    // backgroundColor: '#BDBDBD',
+    padding: '2px 6px 2px 12px',
+
     display: 'inline-block',
-    borderRadius: '0 3px 3px 0',
+    // borderRadius: '0 3px 3px 0',
+    // backgroundColor: '#BDBDBD',
+    color: '#9E9E9E',
+    borderBottom: '1px solid #9E9E9E',
   },
   TextRow: {
-    margin: '5px 10px 0 10px',
+    margin: '5px 12px 0 12px',
   },
   entryText: {
     backgroundColor: '#F5F5F5',
