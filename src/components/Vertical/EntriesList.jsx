@@ -18,7 +18,11 @@ class EntriesList extends Component {
       <div>
         {week.days().map(({ day_name, entries }) => (
           <div key={day_name} style={style.dayCard}>
-            <div style={style.listHeading}>{day_name}</div>
+            <div style={style.listHeading}>
+              <div style={style.listHeadingText}>
+                {day_name}
+              </div>
+            </div>
             {entries.map(entry => (
               <Entry entry={entry} key={entry.id} editor={editor} />
             ))}
