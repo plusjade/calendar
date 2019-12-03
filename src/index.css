@@ -6,6 +6,8 @@ html, body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  font-family: 'Noto Sans', sans-serif;
   color: #212121;
   font-size: 14px;
   background-color: #E0E0E0;
@@ -19,4 +21,6 @@ code {
 #root {
   height: 100vh;
   background-color: #E0E0E0;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }

@@ -33,25 +33,28 @@ export default {
     color: '#616161',
   },
   entryCard: {
-    margin: '5px 10px',
-    display: 'flex',
-    //flexDirection: 'column',
-    backgroundColor: '#EEEEEE',
-    borderRadius: 10,
   },
   entryRow: {
-    flex: 1,
     boxSizing: 'border-box',
+    display: 'flex',
   },
   categoryRow: {
-    padding: 10,
+    marginTop: 10,
+    padding: '2px 10px 2px 10px',
+    backgroundColor: '#BDBDBD',
+    display: 'inline-block',
+    fontSize: 10,
+    borderRadius: '0 3px 3px 0',
   },
   TextRow: {
-    flex: 2,
+    margin: '5px 10px 0 10px',
+    backgroundColor: '#EEEEEE',
+    borderRadius: 10,
+    boxSizing: 'border-box',
     padding: 10,
   },
   TagsRow: {
-    marginTop: 5,
+    margin: '5px 0 0 10px',
     // padding: 10,
   },
 }

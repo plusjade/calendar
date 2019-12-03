@@ -16,7 +16,7 @@ class Week extends Component {
   }
 
   state = {
-    activeTab: 'categories',
+    activeTab: 'week',
   }
 
   constructor(props) {

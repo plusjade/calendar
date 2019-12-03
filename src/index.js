@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import Week from './components/Spreadsheet/Spreadsheet'
-// import Week from './components/Vertical/Week'
+// import Week from './components/Spreadsheet/Spreadsheet'
+import Week from './components/Vertical/Week'
 import * as serviceWorker from './serviceWorker'
 
 import { token } from './lib/actions'
