@@ -9,6 +9,7 @@ const style = {
   default: {
     position: 'fixed',
     bottom: 0,
+    top: 0,
     width: '100vw',
     zIndex: 2000,
     display: 'flex',
@@ -24,7 +25,7 @@ const style = {
     backgroundColor: '#212121',
     borderRadius: '10px 10px 0 0',
     minHeight: '20vh',
-    maxHeight: '95vh',
+    height: '90vh',
     padding: 10,
     color: '#EEEEEE',
   },
