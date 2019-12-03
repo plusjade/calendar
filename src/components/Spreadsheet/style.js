@@ -32,12 +32,25 @@ export default {
     textAlign: 'left',
     minWidth: 200,
   },
-  td: {
+  entryCard: {
     minWidth: 200,
     margin: '20px 10px',
+  },
+  entryText: {
     backgroundColor: '#F5F5F5',
+    minHeight: 20,
     borderRadius: 10,
     padding: 10,
+  },
+  entryTags: {
+    marginTop: 8,
+    minHeight: 10,
+  },
+  hashtag: {
+    padding: '2px 4px',
+    backgroundColor: '#eeeeee',
+    borderRadius: 3,
+    fontSize: 12,
   },
   dayPanel: {
     height: '96vh',
@@ -70,13 +83,4 @@ export default {
     // padding: '8px 8px 8px 0',
     // borderRadius: 5,
   },
-  tagsWrap: {
-    marginBottom: 8,
-    minHeight: 10,
-  },
-  hashtag: {
-    padding: '2px 4px',
-    backgroundColor: '#eeeeee',
-    borderRadius: 3,
-  }
 }

@@ -30,15 +30,18 @@ class Entry extends Component {
 
     return (
       <Hammer onTap={this.onTap}>
-        <div style={style.td} key={id}>
-          <div style={style.tagsWrap}>
+        <div style={style.entryCard} key={id}>
+          <div style={style.entryText}>
+            {text}
+          </div>
+          <div style={style.entryTags}>
             {tags.map(tag => (
               <span style={style.hashtag} key={tag}>
                 {tag}
               </span>
             ))}
           </div>
-          <span>{text}</span>
+
         </div>
       </Hammer>
     )
