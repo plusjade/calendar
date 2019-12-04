@@ -115,7 +115,7 @@ const entriesObjects = (
 
 const localCats = Storage.get('categoriesObjects')
 const localEntries = Storage.get('entriesObjects')
-if (!localCats) {
+if (localCats) {
   const categoriesObjects = JSON.parse(localCats)
   const entriesObjects = JSON.parse(localEntries)
   console.log('local!')
