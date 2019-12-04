@@ -5,6 +5,7 @@ import './index.css'
 import Week from './components/Vertical/Week'
 import * as serviceWorker from './serviceWorker'
 
+import * as Storage from './api/storage'
 import { token } from './lib/actions'
 
 import CategoryObject from './objects/CategoryObject'
@@ -110,18 +111,27 @@ const entriesObjects = (
     return memo
   }, {})
 )
-const week = new WeekObject({
-  entriesObjects,
-  categoriesObjects,
-  // timeStart: Date.now(),
-  // template_ref: "workout",
-})
 
 
-ReactDOM.render(
-  <Week week={week} />,
-  document.getElementById('root')
-)
+const localCats = Storage.get('categoriesObjects')
+const localEntries = Storage.get('entriesObjects')
+if (!localCats) {
+  const categoriesObjects = JSON.parse(localCats)
+  const entriesObjects = JSON.parse(localEntries)
+  console.log('local!')
+  console.log(categoriesObjects, entriesObjects)
+  const week = new WeekObject({ entriesObjects, categoriesObjects })
+  ReactDOM.render(
+    <Week week={week} />,
+    document.getElementById('root')
+  )
+} else {
+  const week = new WeekObject({ entriesObjects, categoriesObjects })
+  ReactDOM.render(
+    <Week week={week} />,
+    document.getElementById('root')
+  )
+}
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

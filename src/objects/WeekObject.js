@@ -1,8 +1,22 @@
+import debounce from 'lodash.debounce'
 import { observable, autorun, toJS } from "mobx"
+import * as Storage from '../api/storage'
 import { token } from '../lib/actions'
 import EntryObject from './EntryObject'
 
 const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+const subscribe = ({ entriesObjects, categoriesObjects }) => {
+  console.log('subscribe')
+  console.log({
+    entriesObjects: toJS(entriesObjects),
+    categoriesObjects: toJS(categoriesObjects),
+  })
+
+  Storage.set('categoriesObjects', JSON.stringify(toJS(categoriesObjects)))
+  Storage.set('entriesObjects', JSON.stringify(toJS(entriesObjects)))
+}
+const debouncedSubscribe = subscribe ? debounce(subscribe, 500) : () => {}
+
 
 class WeekObject {
   entriesObjects = {}
@@ -23,10 +37,14 @@ class WeekObject {
 
     this.days()
 
-    console.log({ entriesObjects: this.entriesObjects, categoriesObjects: this.categoriesObjects })
-
     autorun(() => {
-      console.log('autorun!', entriesObjects)
+      this.getCategories().map(({ name }) => name)
+      this.getEntries().map(({ text, tags }) => [text, tags])
+
+      debouncedSubscribe({
+        entriesObjects: this.entriesObjects,
+        categoriesObjects: this.categoriesObjects,
+      })
     })
   }
 
