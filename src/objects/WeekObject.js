@@ -20,6 +20,9 @@ class WeekObject {
         return [key, observable(entriesObjects[key])]
       })
     )
+
+    this.days()
+
     console.log({ entriesObjects: this.entriesObjects, categoriesObjects: this.categoriesObjects })
 
     autorun(() => {
@@ -75,9 +78,13 @@ class WeekObject {
         const entries = this.getCategories().map(category => {
           const { id } = category
           const entryId = entriesListForDay.find(entryId => this.getEntry(entryId).category_id === id)
-          const entry = entryId
-            ? this.entriesObjects.get(entryId)
-            : EntryObject({ category_id: id })
+          let entry = null
+          if (entryId) {
+            entry = this.entriesObjects.get(entryId)
+          } else {
+            entry = EntryObject({ category_id: id, day_id: day_name })
+            this.entriesObjects.set(entry.id, observable(entry))
+          }
           entry.category = category
 
           return entry
