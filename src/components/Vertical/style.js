@@ -56,12 +56,28 @@ export default {
   TextRow: {
     margin: '5px 12px 0 12px',
   },
+  entryTextWrap: {
+    display: 'flex',
+    backgroundColor: '#F5F5F5',
+    borderRadius: 7,
+    boxSizing: 'border-box',
+  },
+  entryTextTag: {
+    backgroundColor: '#CCCC',
+    padding: 10,
+    fontSize: 12,
+    borderRadius: '7px 0 0 7px',
+    boxSizing: 'border-box',
+    fontWeight: 600,
+  },
   entryText: {
     backgroundColor: '#F5F5F5',
     padding: 10,
+    fontSize: 12,
     borderRadius: '7px 7px 0 0',
     boxSizing: 'border-box',
   },
+
   entryTags: {
     backgroundColor: '#EEEEEE',
     boxSizing: 'border-box',

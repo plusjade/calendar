@@ -37,19 +37,14 @@ class Entry extends Component {
           </div>
 
           <div style={{...style.entryRow, ...style.TextRow}}>
-            <div style={style.entryText}>
-              <div>{text || <span style={{color: '#BDBDBD'}}>enter text</span>}</div>
-            </div>
-            <div style={style.entryTags}>
-              <div style={style.tagsWrap}>
-                {tags.map(tag => (
-                  <div style={style.hashtag} key={tag}>
-                    {tag}
-                  </div>
-                ))}
+            <div style={style.entryTextWrap}>
+              <div style={style.entryTextTag}>
+                {tags[0] || <span style={{color: '#BDBDBD'}}>type</span>}
+              </div>
+              <div style={style.entryText}>
+                {text || <span style={{color: '#BDBDBD'}}>description</span>}
               </div>
             </div>
-
           </div>
 
 
