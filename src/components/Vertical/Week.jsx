@@ -46,13 +46,17 @@ class Week extends Component {
     return (
       <div>
         <EditorRoot editor={this.editor} week={week} />
-        <div style={{display: 'flex'}}>
-          <Hammer onTap={this.handleToggleCategories}>
-            <div style={style.tab}>Categories</div>
-          </Hammer>
+        <div style={style.navigationWrap}>
           <Hammer onTap={this.handleToggleWeek}>
-            <div style={style.tab}>Week</div>
+            <div style={style.navtab}>Weight Training</div>
           </Hammer>
+          <Hammer onTap={this.handleToggleCategories}>
+            <div style={{ ...style.navtab, ...style.navtabSettings }}><span>⚙️</span></div>
+          </Hammer>
+        </div>
+        <div style={style.dateNavigationWrap}>
+          <div style={style.navtabDate}>2019</div>
+          <div style={style.navtabDate}>DEC</div>
         </div>
         <div style={style.listWrap}>
           {this.state.activeTab === 'categories' && (

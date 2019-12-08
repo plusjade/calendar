@@ -15,11 +15,6 @@ export default {
     flexDirection: 'column',
     marginTop: 5,
   },
-  tab: {
-    fontWeight: 'bold',
-    padding: 10,
-    color: '#616161',
-  },
   listHeading: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -101,5 +96,26 @@ export default {
     color: '#616161',
     fontWeight: 600,
     // backgroundColor: '#FFFDE7',
+  },
+  navigationWrap: {
+    display: 'flex',
+    borderBottom: '1px solid #616161',
+    alignItems: 'center',
+  },
+  navtab: {
+    flex: 1,
+    fontWeight: 'bold',
+    padding: 10,
+    color: '#616161',
+  },
+  navtabSettings: {
+    textAlign: 'right',
+  },
+  dateNavigationWrap: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  navtabDate: {
+    padding: 10,
   },
 }

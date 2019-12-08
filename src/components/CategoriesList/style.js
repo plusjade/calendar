@@ -6,4 +6,7 @@ export default {
     backgroundColor: '#EEEEEE',
     borderRadius: 10,
   },
+  heading: {
+    padding: '0 12px',
+  },
 }

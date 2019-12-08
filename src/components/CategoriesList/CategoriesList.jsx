@@ -21,6 +21,17 @@ class CategoriesList extends Component {
     console.log('render CategoriesList')
     return (
       <div>
+        <div>
+          <h3 style={style.heading}>Template name</h3>
+          <EnterText
+            value={''}
+            onSubmit={this.onEnterTags}
+            onChange={this.onChangeTags}
+            placeholder={'template name'}
+            isActive
+          />
+        </div>
+        <h3 style={style.heading}>Categories</h3>
         {this.props.week.getCategories().map(category =>
           <Category
             key={category.id}
