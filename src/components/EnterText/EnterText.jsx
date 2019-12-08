@@ -101,10 +101,10 @@ class EnterText extends PureComponent {
           <button
             style={[
               style.inputButton,
-              this.state.value && style.inputButtonActive,
+              style.inputButtonActive,
             ]}
           >
-            {this.state.value ? "DONE" : "DELETE"}
+            UPDATE
           </button>
         </Hammer>
       </div>

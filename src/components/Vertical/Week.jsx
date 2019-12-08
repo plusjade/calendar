@@ -1,5 +1,5 @@
 import { observer } from "mobx-react"
-import { observable, reaction, action } from "mobx"
+import { observable, reaction } from "mobx"
 import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -7,7 +7,6 @@ import Hammer from 'react-hammerjs'
 import CategoriesList from '../CategoriesList/CategoriesList'
 import EditorRoot from '../EditorRoot'
 import EntriesList from './EntriesList'
-import Entry from './Entry'
 import style from './style'
 
 class Week extends Component {

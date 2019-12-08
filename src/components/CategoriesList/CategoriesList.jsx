@@ -5,15 +5,12 @@ import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
 import CategoryObject from '../../objects/CategoryObject'
 import Category from './Category'
-
+import EnterText from '../EnterText/EnterText'
 import style from './style'
 
 class CategoriesList extends Component {
   static propTypes = {
-    category: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+    week: PropTypes.object.isRequired,
   }
 
   handleAddCategory = () => {
