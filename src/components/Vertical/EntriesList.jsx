@@ -7,16 +7,16 @@ import style from './style'
 
 class EntriesList extends Component {
   static propTypes = {
-    week: PropTypes.object.isRequired,
+    program: PropTypes.object.isRequired,
     editor: PropTypes.object.isRequired,
   }
 
   render() {
-    const { week, editor } = this.props
+    const { program, editor } = this.props
 
     return (
       <div>
-        {week.days().map(({ day_name, entries }) => (
+        {program.days().map(({ day_name, entries }) => (
           <div key={day_name} style={style.dayCard}>
             <div style={style.listHeading}>
               <div style={style.listHeadingText}>

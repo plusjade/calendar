@@ -3,22 +3,24 @@ import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
-import CategoryObject from '../../objects/CategoryObject'
 import Category from './Category'
 import EnterText from '../EnterText/EnterText'
 import style from './style'
 
 class CategoriesList extends Component {
   static propTypes = {
-    week: PropTypes.object.isRequired,
+    addCategory: PropTypes.func.isRequired,
+    categories: PropTypes.array.isRequired,
   }
 
   handleAddCategory = () => {
-    this.props.week.addCategory(CategoryObject())
+    this.props.addCategory()
   }
 
   render() {
     console.log('render CategoriesList')
+    const { editor, categories } = this.props
+
     return (
       <div>
         <div>
@@ -32,17 +34,17 @@ class CategoriesList extends Component {
           />
         </div>
         <h3 style={style.heading}>Categories</h3>
-        {this.props.week.getCategories().map(category =>
+        {categories.map(category =>
           <Category
             key={category.id}
             category={category}
-            editor={this.props.editor}
+            editor={editor}
           />
         )}
 
         <Hammer onTap={this.handleAddCategory}>
           <div style={{ ...style.entryCard, padding: 10 }}>
-            <span>➕</span>
+            <span role='img' aria-label='add category'>➕</span>
           </div>
         </Hammer>
       </div>

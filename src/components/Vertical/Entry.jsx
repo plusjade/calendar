@@ -12,7 +12,7 @@ class Entry extends Component {
       category_id: PropTypes.string.isRequired,
       category: PropTypes.object.isRequired,
       text: PropTypes.string.isRequired,
-      tags: PropTypes.array.isRequired,
+      type: PropTypes.string.isRequired,
     }).isRequired,
     editor: PropTypes.shape({
       activeObject: PropTypes.object,
@@ -26,7 +26,7 @@ class Entry extends Component {
 
   render() {
     console.log('Entry render')
-    const { text, tags, category: { name }, id, category_id } = this.props.entry
+    const { text, type, category: { name } } = this.props.entry
 
     return (
       <Hammer onTap={this.onTap}>
@@ -39,7 +39,7 @@ class Entry extends Component {
           <div style={{...style.entryRow, ...style.TextRow}}>
             <div style={style.entryTextWrap}>
               <div style={style.entryTextTag}>
-                {tags[0] || <span style={{color: '#BDBDBD'}}>type</span>}
+                {type || <span style={{color: '#BDBDBD'}}>type</span>}
               </div>
               <div style={style.entryText}>
                 {text || <span style={{color: '#BDBDBD'}}>description</span>}

@@ -19,5 +19,11 @@ const Category = observer(props => {
     </Hammer>
   )
 })
+Category.propTypes = {
+  category: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  editor: PropTypes.object.isRequired,
+}
 
 export default Category

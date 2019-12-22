@@ -2,7 +2,6 @@ import { observer } from "mobx-react"
 import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Hammer from 'react-hammerjs'
 import EnterText from './EnterText/EnterText'
 
 class EditCategoryObject extends Component {
@@ -22,7 +21,7 @@ class EditCategoryObject extends Component {
   }
 
   onEnterText = value => {
-    const { category, editor } = this.props
+    const { category } = this.props
     if (value) {
       category.name = value || ''
     }

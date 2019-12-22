@@ -8,6 +8,7 @@ export default {
     flexDirection: 'column',
     justifyContent: 'center',
     width: '100%',
+    marginBottom: '5vh',
   },
   dayCard: {
     flex: 1,

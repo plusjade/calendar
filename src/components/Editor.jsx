@@ -66,25 +66,25 @@ class Editor extends Component {
     this.props.editor.activeObject.text = value || ''
   }
 
-  onEnterTags = (value) => {
+  onEnterType = (value) => {
     if (value) {
-      this.onChangeTags(value)
+      this.onChangeType(value)
     }
 
     this.handleClose()
   }
 
-  onChangeTags = (value) => {
-    this.props.editor.activeObject.tags = (value || '').split(' ')
+  onChangeType = (value) => {
+    this.props.editor.activeObject.type = value || ''
   }
 
   render() {
     console.log('editor render')
     const { activeObject = {} } = this.props.editor
-    const entry = activeObject && activeObject.type === 'EntryObject' ? activeObject : null
-    const category = activeObject && activeObject.type === 'CategoryObject' ? activeObject : null
+    const entry = activeObject && activeObject.o_type === 'EntryObject' ? activeObject : null
+    const category = activeObject && activeObject.o_type === 'CategoryObject' ? activeObject : null
 
-    const { text, tags, category: { name } = {}, id, category_id } = entry || {}
+    const { text, type, category: { name } = {}, id, category_id } = entry || {}
 
     const isActive = entry || category ? style.isActive : {}
     const css = {...style.default, ...isActive}
@@ -93,7 +93,11 @@ class Editor extends Component {
       <div style={css}>
         <div>
           <Hammer onTap={this.handleClose}>
-            <div style={style.close}><div style={style.closeInner}>❌</div></div>
+            <div style={style.close}>
+              <div style={style.closeInner}>
+                <span role='img' aria-label='add category'>❌</span>
+              </div>
+            </div>
           </Hammer>
         </div>
         <div style={style.inner}>
@@ -105,7 +109,7 @@ class Editor extends Component {
               <div>name: {name}</div>
               <div>
                 <EnterText
-                  value={entry.text}
+                  value={text}
                   onSubmit={this.onEnterText}
                   onChange={this.onChangeText}
                   placeholder={'enter a text description'}
@@ -114,10 +118,10 @@ class Editor extends Component {
               </div>
               <div>
                 <EnterText
-                  value={tags.join(' ')}
-                  onSubmit={this.onEnterTags}
-                  onChange={this.onChangeTags}
-                  placeholder={'tags'}
+                  value={type}
+                  onSubmit={this.onEnterType}
+                  onChange={this.onChangeType}
+                  placeholder={'type'}
                   isActive
                 />
               </div>

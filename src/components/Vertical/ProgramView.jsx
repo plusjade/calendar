@@ -9,23 +9,23 @@ import EditorRoot from '../EditorRoot'
 import EntriesList from './EntriesList'
 import style from './style'
 
-class Week extends Component {
+class ProgramView extends Component {
   static propTypes = {
-    week: PropTypes.object.isRequired,
+    program: PropTypes.object.isRequired,
   }
 
   state = {
-    activeTab: 'week',
+    activeTab: 'list',
   }
 
   constructor(props) {
     super(props)
-    const { week } = props
+    const { program } = props
 
     this.editor = observable({ entry: null })
 
     reaction(
-      () => week.days(),
+      () => program.days(),
       (days) => {
         console.log('reaction', days)
       }
@@ -37,21 +37,23 @@ class Week extends Component {
   }
 
   handleToggleWeek = () => {
-    this.setState({activeTab: 'week'})
+    this.setState({activeTab: 'list'})
   }
 
   render() {
-    const { week } = this.props
+    const { program } = this.props
 
     return (
       <div>
-        <EditorRoot editor={this.editor} week={week} />
+        <EditorRoot editor={this.editor} />
         <div style={style.navigationWrap}>
           <Hammer onTap={this.handleToggleWeek}>
             <div style={style.navtab}>Weight Training</div>
           </Hammer>
           <Hammer onTap={this.handleToggleCategories}>
-            <div style={{ ...style.navtab, ...style.navtabSettings }}><span>⚙️</span></div>
+            <div style={{ ...style.navtab, ...style.navtabSettings }}>
+              <span role='img' aria-label='settings'>⚙️</span>
+            </div>
           </Hammer>
         </div>
         <div style={style.dateNavigationWrap}>
@@ -60,10 +62,17 @@ class Week extends Component {
         </div>
         <div style={style.listWrap}>
           {this.state.activeTab === 'categories' && (
-            <CategoriesList week={week} editor={this.editor} />
+            <CategoriesList
+              addCategory={program.addCategory}
+              categories={program.getCategories()}
+              editor={this.editor}
+            />
           )}
-          {this.state.activeTab === 'week' && (
-            <EntriesList week={week} editor={this.editor} />
+          {this.state.activeTab === 'list' && (
+            <EntriesList
+              program={program}
+              editor={this.editor}
+            />
           )}
         </div>
       </div>
@@ -71,4 +80,4 @@ class Week extends Component {
   }
 }
 
-export default Radium(observer(Week))
+export default Radium(observer(ProgramView))

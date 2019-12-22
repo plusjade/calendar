@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
 import Editor from './Editor'
 
 const Node = window.document.getElementById('editor-root')
