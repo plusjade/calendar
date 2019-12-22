@@ -4,30 +4,15 @@ import ProgramObject from './objects/ProgramObject'
 import ProgramView from './components/Vertical/ProgramView'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import {
-  createProgramId,
-  getCategories,
-  getEntriesForMonth,
-  getProgramId,
-} from './api/data'
+import { createProgramId, getProgramId } from './api/data'
 
 // legacy
 // Storage.get('categoriesObjects')
 // Storage.get('entriesObjects')
 
-let categoriesObjects = {}
-let entriesObjects = {}
-const programId = getProgramId()
-if (programId) {
-  console.log('programId', programId)
-  categoriesObjects = getCategories()
-  entriesObjects = getEntriesForMonth()
-} else {
-  // no data
-  createProgramId()
-}
+const programId = getProgramId() || createProgramId()
+const program = new ProgramObject({ programId })
 
-const program = new ProgramObject({ entriesObjects, categoriesObjects })
 ReactDOM.render(
   <ProgramView program={program} />,
   document.getElementById('root')

@@ -2,17 +2,21 @@ import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
 import CategoriesObjects from './CategoriesObjects'
 import EntriesObjects from './EntriesObjects'
+import { getCategories, getEntriesForMonth } from '../api/data'
 
 const DAYS = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
 class ProgramObject {
   entriesObjects = {}
   categoriesObjects = {}
-  id = null
+  programId = null
 
-  constructor({ categoriesObjects = {}, entriesObjects = {} } = {}) {
-    this.categoriesObjects = CategoriesObjects(categoriesObjects)
-    this.entriesObjects = EntriesObjects(entriesObjects)
+  constructor({ programId } = {}) {
+    if (!programId) { throw new Error() }
+    console.log('programId', programId)
+    this.programId = programId
+    this.categoriesObjects = CategoriesObjects(getCategories())
+    this.entriesObjects = EntriesObjects(getEntriesForMonth())
     this.days()
   }
 
