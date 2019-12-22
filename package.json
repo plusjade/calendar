@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "lodash.debounce": "^4.0.8",
+    "luxon": "^1.21.3",
     "mobx": "^5.15.0",
     "mobx-react": "^6.1.4",
     "prop-types": "^15.7.2",
