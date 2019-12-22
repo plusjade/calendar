@@ -16,18 +16,23 @@ class EntriesList extends Component {
 
     return (
       <div>
-        {program.days().map(({ day_name, entries }) => (
-          <div key={day_name} style={style.dayCard}>
-            <div style={style.listHeading}>
-              <div style={style.listHeadingText}>
-                {day_name}
+        {program.days().map(({ date, entries }) => {
+          const name = date.toLocaleString()
+          const weekday = date.weekdayShort.toUpperCase()
+
+          return (
+            <div key={name} style={style.dayCard}>
+              <div style={style.listHeading}>
+                <div style={style.listHeadingText}>
+                  {name} {weekday}
+                </div>
               </div>
+              {entries.map(entry => (
+                <Entry entry={entry} key={entry.id} editor={editor} />
+              ))}
             </div>
-            {entries.map(entry => (
-              <Entry entry={entry} key={entry.id} editor={editor} />
-            ))}
-          </div>
-        ))}
+          )
+        })}
       </div>
     )
   }

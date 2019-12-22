@@ -1,5 +1,8 @@
+import { DateTime, Interval, Duration } from 'luxon'
 import * as Storage from './storage'
 import { token } from '../lib/actions'
+
+const CURRENT_DATE = DateTime.local()
 
 // ======== PROGRAMS ===========================================================
 export const getListKeyPrograms = () => {
@@ -55,10 +58,10 @@ export const getCategories = () =>
 
 // ======== MONTHS =============================================================
 export const getListKeyMonths = () => {
-  const date = new Date()
   const version = 'v0'
   const programId = getProgramId()
-  return `monthsList.${version}.${programId}.${date.getFullYear()}.${date.getMonth()}`
+  const ordinal = CURRENT_DATE.set({ day: 1 }).toISODate()
+  return `monthsList.${version}.${programId}.${ordinal}`
 }
 export const getListMonthCurrent = () => {
   const key = getListKeyMonths()
@@ -70,6 +73,7 @@ export const getListMonthCurrent = () => {
 }
 
 // ======== ENTRIES =============================================================
+// Get saved entries for Month
 export const getEntriesForMonth = () =>
   getListMonthCurrent().reduce((memo, id) => {
     const data = Storage.get(getKeyEntry(id))
