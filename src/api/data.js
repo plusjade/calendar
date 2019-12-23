@@ -2,7 +2,6 @@ import { DateTime, Interval, Duration } from 'luxon'
 import * as Storage from './storage'
 import { token } from '../lib/actions'
 
-const CURRENT_DATE = DateTime.local()
 
 // ======== PROGRAMS ===========================================================
 export const getListKeyPrograms = () => {
@@ -28,26 +27,24 @@ export const getProgramId = () => {
 }
 
 // ======== CATEGORIES =========================================================
-export const getListKeyCategories = () => {
-  const version = 'v0'
-  const programId = getProgramId()
-  return `categoriesList.${version}.${programId}`
-}
-export const getKeyCategory = (id) => {
+export const getKeyCategoryDB = (id) => {
   const version = 'v0'
   return `category.${version}.${id}`
 }
-
-export const getListCategories = () => {
-  const key = getListKeyCategories()
+export const getListKeyCategoriesDB = ({ programId }) => {
+  const version = 'v0'
+  return `categoriesList.${version}.${programId}`
+}
+const getListCategoriesDB = ({ programId }) => {
+  const key = getListKeyCategoriesDB({ programId })
   const json = Storage.get(key)
   if (json) {
     return Object.keys(JSON.parse(json))
   }
   return []
 }
-export const getCategories = () =>
-  getListCategories().reduce((memo, id) => {
+export const getCategoriesDB = ({ programId }) =>
+  getListCategoriesDB({ programId }).reduce((memo, id) => {
     const version = 'v0'
     const data = Storage.get(`category.${version}.${id}`)
     if (data) {
@@ -57,6 +54,7 @@ export const getCategories = () =>
   }, {})
 
 // ======== MONTHS =============================================================
+const CURRENT_DATE = DateTime.local()
 export const getListKeyMonths = () => {
   const version = 'v0'
   const programId = getProgramId()

@@ -1,9 +1,10 @@
 import { DateTime, Interval, Duration } from 'luxon'
+import * as Storage from '../api/storage'
 import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
 import CategoriesObjects from './CategoriesObjects'
 import EntriesObjects from './EntriesObjects'
-import { getCategories, getEntriesForMonth } from '../api/data'
+import { getCategoriesDB, getEntriesForMonth } from '../api/data'
 
 const DURATION = Duration.fromObject({ days: 1 })
 
@@ -16,15 +17,16 @@ class ProgramObject {
     if (!programId) { throw new Error() }
     console.log('programId', programId)
     this.programId = programId
-    this.datePointer = DateTime.local()
-    this.categoriesObjects = CategoriesObjects(getCategories())
-    this.entriesObjects = EntriesObjects(getEntriesForMonth())
-    this.days()
+    this.categoriesObjects = CategoriesObjects({ objects: getCategoriesDB({ programId }), programId })
+
     // Get the program monthlists relative the the current pointer (defaults to current day)
     // Show the next 14 days from the pointer (only show past 14 days if there are records?)
     // Person can change the pointer to scroll through time
     // (internally the scrolls are chunked by months, but that shouldn't matter)
     // Programs have monthLists, based on a pointer get the array of month pointers
+    this.datePointer = DateTime.local()
+    this.entriesObjects = EntriesObjects(getEntriesForMonth())
+    this.days()
   }
 
   // Interval from the dayPointer to the end of its month
