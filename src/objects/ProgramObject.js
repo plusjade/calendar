@@ -5,16 +5,15 @@ import CategoryCollection from './CategoryCollection'
 import EntryCollection from './EntryCollection'
 import * as Sync from '../api/data'
 
-const DURATION = Duration.fromObject({ days: 1 })
+const ONE_DAY_DURATION = Duration.fromObject({ days: 1 })
 
 class ProgramObject {
+  programId = null
   entryCollection = {}
   categoryCollection = {}
-  programId = null
 
   constructor({ programId } = {}) {
     if (!programId) { throw new Error() }
-    console.log('programId', programId)
     this.programId = programId
     this.datePointer = DateTime.local()
     this.categoryCollection = CategoryCollection({
@@ -28,23 +27,13 @@ class ProgramObject {
     this.days()
   }
 
-  // Interval from the dayPointer to the end of its month
   getInterval = () =>
-    Interval.fromDateTimes(
-      this.datePointer,
-      DateTime
-      .fromObject({
-        year: this.datePointer.year,
-        month: this.datePointer.month,
-        day: 1,
-      })
-      .plus({ month: 1 })
-    )
+    Interval.fromDateTimes(this.datePointer, this.datePointer.plus({ weeks: 4 }))
 
   days = () => {
     const daysDict = this.entriesByIsoDate()
     return (
-      this.getInterval().splitBy(DURATION).map(duration => {
+      this.getInterval().splitBy(ONE_DAY_DURATION).map(duration => {
         const date = duration.start
         const iso_date = duration.start.toISODate()
         const entriesForDay = daysDict[iso_date] || []
