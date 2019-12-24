@@ -2,9 +2,9 @@ import debounce from 'lodash.debounce'
 import * as Storage from '../api/storage'
 import { observable } from 'mobx'
 import EntryObject from './EntryObject'
-import { getListKeyMonths } from '../api/data'
+import * as Sync from '../api/data'
 
-const sync = (object) => {
+const sync = ({ object, programId }) => {
   const data = Object.keys(object.toJSON()).reduce((memo, id) => {
     memo = { ...memo, [id]: true }
     return memo
@@ -12,11 +12,11 @@ const sync = (object) => {
   const json = JSON.stringify(data)
   console.log('sync EntriesObjects', json)
 
-  Storage.set(getListKeyMonths(), json)
+  Storage.set(Sync.getKeyEntryCollectionDB({ programId }), json)
 }
 const debouncedSync = debounce(sync, 1000)
 
-const EntriesObjects = (objects = {}) => {
+const EntriesObjects = ({ objects = {}, programId } = {}) => {
   const object = observable.map(
     Object.keys(objects).map(key => {
       return [key, EntryObject(objects[key])]
@@ -24,7 +24,7 @@ const EntriesObjects = (objects = {}) => {
   )
   object.observe(test => {
     console.log('observe EntriesObjects', test)
-    debouncedSync(object)
+    debouncedSync({ object, programId })
   })
 
   return object

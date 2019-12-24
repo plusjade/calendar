@@ -1,20 +1,20 @@
 import debounce from 'lodash.debounce'
 import * as Storage from '../api/storage'
-import { observable } from "mobx"
+import { observable } from 'mobx'
 import CategoryObject from './CategoryObject'
-import { getListKeyCategoriesDB } from '../api/data'
+import * as Sync from '../api/data'
 
-const sync = ({ object, programId }) => {
+const syncCategoryCollection = ({ object, programId }) => {
   const data = Object.keys(object.toJSON()).reduce((memo, id) => {
     memo = { ...memo, [id]: true }
     return memo
   }, {})
   const json = JSON.stringify(data)
-  console.log('sync CategoriesObjects', json)
+  console.log('sync syncCategoryCollection', json)
 
-  Storage.set(getListKeyCategoriesDB({ programId }), json)
+  Storage.set(Sync.getKeyCategoryCollectionDB({ programId }), json)
 }
-const debouncedSync = debounce(sync, 1000)
+const syncCategoryCollectionDebounced = debounce(syncCategoryCollection, 1000)
 
 const CategoriesObjects = ({ objects = {} , programId } = {}) => {
   const object = observable.map(
@@ -24,8 +24,8 @@ const CategoriesObjects = ({ objects = {} , programId } = {}) => {
   )
 
   object.observe(test => {
-    console.log('observe categoriesObjects', test)
-    debouncedSync({ object, programId })
+    console.log('observe syncCategoryCollection', test)
+    syncCategoryCollectionDebounced({ object, programId })
   })
 
   return object

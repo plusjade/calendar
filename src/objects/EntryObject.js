@@ -3,7 +3,7 @@ import debounce from 'lodash.debounce'
 import * as Storage from '../api/storage'
 import { observable, autorun, toJS } from "mobx"
 import { token } from '../lib/actions'
-import { getKeyEntry } from '../api/data'
+import * as Sync from '../api/data'
 
 const sync = (object) => {
   const data = toJS(object)
@@ -16,7 +16,7 @@ const sync = (object) => {
   delete data.category
   const json = JSON.stringify(data)
   console.log('sync EntryObject', object.id, json)
-  Storage.set(getKeyEntry(object.id), json)
+  Storage.set(Sync.getKeyEntry(object.id), json)
 }
 const debouncedSync = debounce(sync, 1000)
 

@@ -1,10 +1,9 @@
 import { DateTime, Interval, Duration } from 'luxon'
-import * as Storage from '../api/storage'
 import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
 import CategoriesObjects from './CategoriesObjects'
 import EntriesObjects from './EntriesObjects'
-import { getCategoriesDB, getEntriesForMonth } from '../api/data'
+import * as Sync from '../api/data'
 
 const DURATION = Duration.fromObject({ days: 1 })
 
@@ -17,15 +16,15 @@ class ProgramObject {
     if (!programId) { throw new Error() }
     console.log('programId', programId)
     this.programId = programId
-    this.categoriesObjects = CategoriesObjects({ objects: getCategoriesDB({ programId }), programId })
-
-    // Get the program monthlists relative the the current pointer (defaults to current day)
-    // Show the next 14 days from the pointer (only show past 14 days if there are records?)
-    // Person can change the pointer to scroll through time
-    // (internally the scrolls are chunked by months, but that shouldn't matter)
-    // Programs have monthLists, based on a pointer get the array of month pointers
     this.datePointer = DateTime.local()
-    this.entriesObjects = EntriesObjects(getEntriesForMonth())
+    this.categoriesObjects = CategoriesObjects({
+      programId,
+      objects: Sync.getCategoryCollectionDB({ programId }),
+    })
+    this.entriesObjects = EntriesObjects({
+      programId,
+      objects: Sync.getEntryCollectionDB({ programId }),
+    })
     this.days()
   }
 
@@ -48,10 +47,10 @@ class ProgramObject {
       this.getInterval().splitBy(DURATION).map(duration => {
         const date = duration.start
         const iso_date = duration.start.toISODate()
-        const entriesListForDay = daysDict[iso_date] || []
+        const entriesForDay = daysDict[iso_date] || []
         const entries = this.getCategories().map(category => {
           const { id } = category
-          const entryId = entriesListForDay.find(entryId => this.getEntry(entryId).category_id === id)
+          const entryId = entriesForDay.find(entryId => this.getEntry(entryId).category_id === id)
           let entry = null
           if (entryId) {
             entry = this.entriesObjects.get(entryId)

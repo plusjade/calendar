@@ -3,7 +3,7 @@ import * as Storage from '../api/storage'
 import { observable, autorun, toJS } from "mobx"
 import { token } from '../lib/actions'
 import randomEmoji from '../db/randomEmoji'
-import { getKeyCategoryDB } from '../api/data'
+import * as Sync from '../api/data'
 
 const sync = (object) => {
   const data = toJS(object)
@@ -11,7 +11,7 @@ const sync = (object) => {
   const json = JSON.stringify(data)
   console.log('sync CategoryObject', object.id, json)
 
-  Storage.set(getKeyCategoryDB(object.id), json)
+  Storage.set(Sync.getKeyCategoryDB(object.id), json)
 }
 const debouncedSync = debounce(sync, 1000)
 

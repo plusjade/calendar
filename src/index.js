@@ -4,13 +4,13 @@ import ProgramObject from './objects/ProgramObject'
 import ProgramView from './components/Vertical/ProgramView'
 import './index.css'
 import * as serviceWorker from './serviceWorker'
-import { createProgramId, getProgramId } from './api/data'
+import * as Sync from './api/data'
 
 // legacy
 // Storage.get('categoriesObjects')
 // Storage.get('entriesObjects')
 
-const programId = getProgramId() || createProgramId()
+const programId = Sync.getProgramId() || Sync.createProgramId()
 const program = new ProgramObject({ programId })
 
 ReactDOM.render(
