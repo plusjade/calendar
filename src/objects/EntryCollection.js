@@ -10,20 +10,20 @@ const sync = ({ object, programId }) => {
     return memo
   }, {})
   const json = JSON.stringify(data)
-  console.log('sync EntriesObjects', json)
+  console.log('sync EntryCollection', json)
 
   Storage.set(Sync.getKeyEntryCollectionDB({ programId }), json)
 }
 const debouncedSync = debounce(sync, 1000)
 
-const EntriesObjects = ({ objects = {}, programId } = {}) => {
+const EntryCollection = ({ objects = {}, programId } = {}) => {
   const object = observable.map(
     Object.keys(objects).map(key => {
       return [key, EntryObject(objects[key])]
     })
   )
   object.observe(test => {
-    console.log('observe EntriesObjects', test)
+    console.log('observe EntryCollection', test)
     debouncedSync({ object, programId })
   })
 
@@ -31,4 +31,4 @@ const EntriesObjects = ({ objects = {}, programId } = {}) => {
 }
 
 
-export default EntriesObjects
+export default EntryCollection

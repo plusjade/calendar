@@ -2,13 +2,13 @@ import { DateTime, Interval, Duration } from 'luxon'
 import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
 import CategoryCollection from './CategoryCollection'
-import EntriesObjects from './EntriesObjects'
+import EntryCollection from './EntryCollection'
 import * as Sync from '../api/data'
 
 const DURATION = Duration.fromObject({ days: 1 })
 
 class ProgramObject {
-  entriesObjects = {}
+  entryCollection = {}
   categoryCollection = {}
   programId = null
 
@@ -21,7 +21,7 @@ class ProgramObject {
       programId,
       objects: Sync.getCategoryCollectionDB({ programId }),
     })
-    this.entriesObjects = EntriesObjects({
+    this.entryCollection = EntryCollection({
       programId,
       objects: Sync.getEntryCollectionDB({ programId }),
     })
@@ -53,11 +53,11 @@ class ProgramObject {
           const entryId = entriesForDay.find(entryId => this.getEntry(entryId).category_id === id)
           let entry = null
           if (entryId) {
-            entry = this.entriesObjects.get(entryId)
+            entry = this.entryCollection.get(entryId)
           } else {
             // build stub
             entry = EntryObject({ category_id: id, iso_date })
-            this.entriesObjects.set(entry.id, entry)
+            this.entryCollection.set(entry.id, entry)
           }
           entry.category = category
 
@@ -70,7 +70,7 @@ class ProgramObject {
   }
 
   entriesByIsoDate = () => (
-    Array.from(this.entriesObjects.keys()).reduce((memo, key) => {
+    Array.from(this.entryCollection.keys()).reduce((memo, key) => {
       const { iso_date } = this.getEntry(key)
 
       if (memo[iso_date]) {
@@ -98,7 +98,7 @@ class ProgramObject {
     Array.from(this.categoryCollection.keys()).map(id => this.getCategory(id))
   )
 
-  getEntry = id => this.entriesObjects.get(id)
+  getEntry = id => this.entryCollection.get(id)
 }
 
 export default ProgramObject
