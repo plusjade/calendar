@@ -1,7 +1,7 @@
 import { DateTime, Interval, Duration } from 'luxon'
 import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
-import CategoriesObjects from './CategoriesObjects'
+import CategoryCollection from './CategoryCollection'
 import EntriesObjects from './EntriesObjects'
 import * as Sync from '../api/data'
 
@@ -9,7 +9,7 @@ const DURATION = Duration.fromObject({ days: 1 })
 
 class ProgramObject {
   entriesObjects = {}
-  categoriesObjects = {}
+  categoryCollection = {}
   programId = null
 
   constructor({ programId } = {}) {
@@ -17,7 +17,7 @@ class ProgramObject {
     console.log('programId', programId)
     this.programId = programId
     this.datePointer = DateTime.local()
-    this.categoriesObjects = CategoriesObjects({
+    this.categoryCollection = CategoryCollection({
       programId,
       objects: Sync.getCategoryCollectionDB({ programId }),
     })
@@ -86,16 +86,16 @@ class ProgramObject {
   addCategory = () => {
     const category = CategoryObject()
     if (category.o_type === 'CategoryObject') {
-      this.categoriesObjects.set(category.id, category)
+      this.categoryCollection.set(category.id, category)
     } else {
       throw new Error()
     }
   }
 
-  getCategory = id => this.categoriesObjects.get(id)
+  getCategory = id => this.categoryCollection.get(id)
 
   getCategories = () => (
-    Array.from(this.categoriesObjects.keys()).map(id => this.getCategory(id))
+    Array.from(this.categoryCollection.keys()).map(id => this.getCategory(id))
   )
 
   getEntry = id => this.entriesObjects.get(id)

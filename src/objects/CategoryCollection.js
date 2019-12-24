@@ -16,7 +16,7 @@ const syncCategoryCollection = ({ object, programId }) => {
 }
 const syncCategoryCollectionDebounced = debounce(syncCategoryCollection, 1000)
 
-const CategoriesObjects = ({ objects = {} , programId } = {}) => {
+const CategoryCollection = ({ objects = {} , programId } = {}) => {
   const object = observable.map(
     Object.keys(objects).map(key => {
       return [key, CategoryObject(objects[key])]
@@ -32,4 +32,4 @@ const CategoriesObjects = ({ objects = {} , programId } = {}) => {
 }
 
 
-export default CategoriesObjects
+export default CategoryCollection
