@@ -10,7 +10,7 @@ export const getCollectionKeyPrograms = () => {
 export const createProgramId = () => {
   const key = getCollectionKeyPrograms()
   const programId = token()
-  const data = JSON.stringify({ [programId] : true })
+  const data = JSON.stringify({ [programId] : null })
   Storage.set(key, data)
   return programId
 }

@@ -1,4 +1,4 @@
 import Crypto from 'crypto'
 
-export const token = () => Crypto.randomBytes(6).toString('hex')
+export const token = (bytes = 4) => Crypto.randomBytes(bytes).toString('hex')
 

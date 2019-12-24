@@ -6,7 +6,7 @@ import * as Sync from '../api/data'
 
 const syncCategoryCollection = ({ object, programId }) => {
   const data = Object.keys(object.toJSON()).reduce((memo, id) => {
-    memo = { ...memo, [id]: true }
+    memo = { ...memo, [id]: null }
     return memo
   }, {})
   const json = JSON.stringify(data)
