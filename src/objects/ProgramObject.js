@@ -24,19 +24,75 @@ class ProgramObject {
       programId,
       objects: Sync.getEntryCollectionDB({ programId }),
     })
+
     this.days()
+    console.log('asdfasd')
+    console.log(this.weekChunks())
   }
 
-  getInterval = () =>
-    Interval.fromDateTimes(this.datePointer, this.datePointer.plus({ weeks: 4 }))
+  weeks = () => {
+    const dict = this.entriesByWeek()
+    return (
+      this.getInterval().splitBy(Duration.fromObject({ weeks: 1 })).map(duration => {
+        const date = duration.start
+        const entries = dict[date.weekNumber]
+
+        return entries
+      })
+    )
+  }
+
+  getInterval = () => {
+    const start = DateTime
+        .fromObject({
+          year: this.datePointer.year,
+          month: this.datePointer.month,
+          day: 1,
+        })
+    const end = start.plus({ weeks: 6 })
+
+    return Interval.fromDateTimes(start, end)
+  }
+
+  weekChunks = () => {
+    const dict = this._weekChunks()
+    return (
+      this.getInterval().splitBy(Duration.fromObject({ weeks: 1 })).map(duration => {
+        const date = duration.start
+        return ({
+          date,
+          chunk: dict[date.weekNumber],
+          isCurrent: date.weekNumber === this.datePointer.weekNumber,
+        })
+      })
+    )
+  }
+
+  _weekChunks = () => {
+    const days = this.days()
+    return (
+      days.reduce((memo, day) => {
+        const { date } = day
+
+        if (memo[date.weekNumber]) {
+          memo = { ...memo, [date.weekNumber]: [...memo[date.weekNumber], day] }
+        } else {
+          memo = { ...memo, [date.weekNumber]: [day] }
+        }
+
+        return memo
+      }, {})
+    )
+  }
 
   days = () => {
     const daysDict = this.entriesByIsoDate()
     return (
       this.getInterval().splitBy(ONE_DAY_DURATION).map(duration => {
         const date = duration.start
-        const iso_date = duration.start.toISODate()
+        const iso_date = date.toISODate()
         const entriesForDay = daysDict[iso_date] || []
+
         const entries = this.getCategories().map(category => {
           const { id } = category
           const entryId = entriesForDay.find(entryId => this.getEntry(entryId).category_id === id)
@@ -53,7 +109,11 @@ class ProgramObject {
           return entry
         })
 
-        return ({ date, entries })
+        return ({
+          date,
+          entries,
+          isCurrent: iso_date === this.datePointer.toISODate(),
+        })
       })
     )
   }
@@ -71,6 +131,24 @@ class ProgramObject {
       return memo
     }, {})
   )
+
+  entriesByWeek = () => {
+    const dict = this.entriesByIsoDate()
+    return (
+      Object.keys(dict).reduce((memo, iso_date) => {
+        const date = DateTime.fromISO(iso_date)
+        console.log(date, date.weekNumber)
+        const entries = dict[iso_date]
+        if (memo[date.weekNumber]) {
+          memo = { ...memo, [date.weekNumber]: [...memo[date.weekNumber], entries] }
+        } else {
+          memo = { ...memo, [date.weekNumber]: [entries] }
+        }
+
+        return memo
+      }, {})
+    )
+  }
 
   addCategory = () => {
     const category = CategoryObject()

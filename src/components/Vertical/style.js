@@ -24,7 +24,7 @@ export default {
   },
   listHeadingText: {
     // fontWeight: 'bold',
-    textTransform: 'uppercase',
+    // textTransform: 'uppercase',
     color: '#9E9E9E',
     padding: '4px 10px',
     // backgroundColor: '#BDBDBD',
