@@ -2,7 +2,6 @@ import { DateTime } from 'luxon'
 import debounce from 'lodash.debounce'
 import * as Storage from '../api/storage'
 import { observable, autorun, toJS } from "mobx"
-import { token } from '../lib/actions'
 import * as Sync from '../api/data'
 
 const sync = (object) => {
@@ -23,7 +22,7 @@ const debouncedSync = debounce(sync, 1000)
 const EntryObject = ({ id, iso_date, category_id, text = '', type = '' } = {}) => {
   const object = observable({
     o_type: 'EntryObject',
-    id: id || token(),
+    id: id || Sync.token(),
     iso_date: iso_date || DateTime.local().toISODate(),
     category_id,
     text,

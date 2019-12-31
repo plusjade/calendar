@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ProgramObject from './objects/ProgramObject'
-import ProgramView from './components/Vertical/ProgramView'
-import './index.css'
-import * as serviceWorker from './serviceWorker'
-import * as Sync from './api/data'
+import ProgramObject from 'objects/ProgramObject'
+import ProgramView from 'components/Vertical/ProgramView'
+import 'index.css'
+import * as serviceWorker from 'serviceWorker'
+import * as Sync from 'api/data'
 
 // legacy
 // Storage.get('categoriesObjects')

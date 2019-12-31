@@ -1,9 +1,8 @@
 import debounce from 'lodash.debounce'
-import * as Storage from '../api/storage'
 import { observable, autorun, toJS } from "mobx"
-import { token } from '../lib/actions'
-import randomEmoji from '../db/randomEmoji'
-import * as Sync from '../api/data'
+import * as Storage from 'api/storage'
+import * as Sync from 'api/data'
+import randomEmoji from 'db/randomEmoji'
 
 const sync = (object) => {
   const data = toJS(object)
@@ -18,7 +17,7 @@ const debouncedSync = debounce(sync, 1000)
 const CategoryObject = ({ id, name, data_type, data_source } = {}) => {
   const object = observable({
     o_type: 'CategoryObject',
-    id: id || token(),
+    id: id || Sync.token(),
     name: name || randomEmoji(3),
     data_type,
     data_source,

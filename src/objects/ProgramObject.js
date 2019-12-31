@@ -43,13 +43,8 @@ class ProgramObject {
   }
 
   getInterval = () => {
-    const start = DateTime
-        .fromObject({
-          year: this.datePointer.year,
-          month: this.datePointer.month,
-          day: 1,
-        })
-    const end = start.plus({ weeks: 6 })
+    const start = DateTime.local().minus({ day: 1 })
+    const end = DateTime.local().plus({ weeks: 1 })
 
     return Interval.fromDateTimes(start, end)
   }

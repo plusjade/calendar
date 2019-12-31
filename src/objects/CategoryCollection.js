@@ -1,8 +1,8 @@
 import debounce from 'lodash.debounce'
-import * as Storage from '../api/storage'
 import { observable } from 'mobx'
+import * as Storage from 'api/storage'
+import * as Sync from 'api/data'
 import CategoryObject from './CategoryObject'
-import * as Sync from '../api/data'
 
 const syncCategoryCollection = ({ object, programId }) => {
   const data = Object.keys(object.toJSON()).reduce((memo, id) => {

@@ -1,6 +1,8 @@
+import Crypto from 'crypto'
 import { DateTime, Interval, Duration } from 'luxon'
 import * as Storage from './storage'
-import { token } from '../lib/actions'
+
+export const token = (bytes = 4) => Crypto.randomBytes(bytes).toString('hex')
 
 // ======== PROGRAMS ===========================================================
 export const getCollectionKeyPrograms = () => {
