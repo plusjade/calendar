@@ -1,4 +1,5 @@
 import { DateTime, Interval, Duration } from 'luxon'
+import { toJS } from "mobx"
 import EntryObject from './EntryObject'
 import CategoryObject from './CategoryObject'
 import CategoryCollection from './CategoryCollection'
@@ -10,6 +11,7 @@ const ONE_DAY_DURATION = Duration.fromObject({ days: 1 })
 class ProgramObject {
   programId = null
   entryCollection = {}
+  entryTemplateCollection = {}
   categoryCollection = {}
 
   constructor({ programId } = {}) {
@@ -21,13 +23,33 @@ class ProgramObject {
       objects: Sync.getCategoryCollectionDB({ programId }),
     })
     this.entryCollection = EntryCollection({
-      programId,
+      key: Sync.getKeyEntryCollectionDB({ programId }),
       objects: Sync.getEntryCollectionDB({ programId }),
     })
+    this.entryTemplateCollection = EntryCollection({
+      key: Sync.getKeyTemplateCollectionDB({ programId }),
+      objects: Sync.getTemplateCollectionDB({ programId }),
+    })
 
-    this.days()
-    console.log('asdfasd')
-    console.log(this.weekChunks())
+    // this.days()
+    // console.log(this.weekChunks())
+  }
+
+  templateEntriesByDay = (day) => (
+    Array.from(this.entryTemplateCollection.keys()).reduce((memo, key) => {
+      const entry = this.entryTemplateCollection.get(key)
+
+      if (entry.position === day) {
+        memo = [ ...memo, entry ]
+      }
+
+      return memo
+    }, [])
+  )
+
+  addEntry = (data = {}) => {
+    const entry = EntryObject(data)
+    this.entryTemplateCollection.set(entry.id, entry)
   }
 
   weeks = () => {
@@ -88,21 +110,19 @@ class ProgramObject {
         const iso_date = date.toISODate()
         const entriesForDay = daysDict[iso_date] || []
 
-        const entries = this.getCategories().map(category => {
-          const { id } = category
-          const entryId = entriesForDay.find(entryId => this.getEntry(entryId).category_id === id)
-          let entry = null
-          if (entryId) {
-            entry = this.entryCollection.get(entryId)
-          } else {
-            // build stub
-            entry = EntryObject({ category_id: id, iso_date })
-            this.entryCollection.set(entry.id, entry)
-          }
-          entry.category = category
+        let entries = entriesForDay.map(entryId => this.entryCollection.get(entryId))
 
-          return entry
-        })
+        if (entries.length === 0) {
+          const temps = this.templateEntriesByDay(date.weekdayLong)
+          entries = temps.map(temp => {
+            console.log('temp', temp)
+            const { id, ...data } = toJS(temp)
+            const entry = EntryObject({ ...data, iso_date })
+            this.entryCollection.set(entry.id, entry)
+
+            return entry
+          })
+        }
 
         return ({
           date,

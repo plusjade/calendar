@@ -4,7 +4,7 @@ import Radium from 'radium'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Hammer from 'react-hammerjs'
-import CategoriesList from '../CategoriesList/CategoriesList'
+import TemplateView from 'components/TemplateView/TemplateView'
 import EditorRoot from '../EditorRoot'
 import EntriesList from './EntriesList'
 import style from './style'
@@ -15,7 +15,7 @@ class ProgramView extends Component {
   }
 
   state = {
-    activeTab: 'list',
+    activeTab: 'template',
   }
 
   constructor(props) {
@@ -23,17 +23,16 @@ class ProgramView extends Component {
     const { program } = props
 
     this.editor = observable({ entry: null })
-
-    reaction(
-      () => program.days(),
-      (days) => {
-        console.log('reaction', days)
-      }
-    )
+    // reaction(
+    //   () => program.days(),
+    //   (days) => {
+    //     console.log('reaction', days)
+    //   }
+    // )
   }
 
-  handleToggleCategories = () => {
-    this.setState({activeTab: 'categories'})
+  handleToggleTemplate = () => {
+    this.setState({activeTab: 'template'})
   }
 
   handleToggleWeek = () => {
@@ -48,23 +47,21 @@ class ProgramView extends Component {
         <EditorRoot editor={this.editor} />
         <div style={style.navigationWrap}>
           <Hammer onTap={this.handleToggleWeek}>
-            <div style={style.navtab}>Weight Training</div>
+            <div style={style.navtab}>
+              Schedule
+            </div>
           </Hammer>
-          <Hammer onTap={this.handleToggleCategories}>
+          <Hammer onTap={this.handleToggleTemplate}>
             <div style={{ ...style.navtab, ...style.navtabSettings }}>
               <span role='img' aria-label='settings'>⚙️</span>
             </div>
           </Hammer>
         </div>
-        <div style={style.dateNavigationWrap}>
-          <div style={style.navtabDate}>2019</div>
-          <div style={style.navtabDate}>DEC</div>
-        </div>
         <div style={style.listWrap}>
-          {this.state.activeTab === 'categories' && (
-            <CategoriesList
-              addCategory={program.addCategory}
-              categories={program.getCategories()}
+          {this.state.activeTab === 'template' && (
+            <TemplateView
+              program={program}
+              addEntry={program.addEntry}
               editor={this.editor}
             />
           )}

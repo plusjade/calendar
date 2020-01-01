@@ -6,7 +6,7 @@ import * as Sync from '../api/data'
 
 const sync = (object) => {
   const data = toJS(object)
-  if (data.text === '' && data.type === '') {
+  if (data.text === '' && data.type === '' && data.position === '') {
     console.log('skipping empty EntryObject')
     // don't save empty data -- these are Entry stubs for the UI
     return
@@ -19,7 +19,7 @@ const sync = (object) => {
 }
 const debouncedSync = debounce(sync, 1000)
 
-const EntryObject = ({ id, iso_date, category_id, text = '', type = '' } = {}) => {
+const EntryObject = ({ id, iso_date, category_id, text = '', type = '', position = '' } = {}) => {
   const object = observable({
     o_type: 'EntryObject',
     id: id || Sync.token(),
@@ -28,10 +28,11 @@ const EntryObject = ({ id, iso_date, category_id, text = '', type = '' } = {}) =
     text,
     type,
     category: {},
+    position,
   })
 
   autorun(() => {
-    const { id, iso_date, text, type } = object
+    const { id, iso_date, text, type, position } = object
     debouncedSync(object)
   })
 

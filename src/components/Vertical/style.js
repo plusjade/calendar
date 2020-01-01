@@ -65,6 +65,9 @@ export default {
     borderRadius: '7px 0 0 7px',
     boxSizing: 'border-box',
     fontWeight: 600,
+    minWidth: 60,
+    textAlign: 'right',
+    flex: 1,
   },
   entryText: {
     backgroundColor: '#F5F5F5',
@@ -72,8 +75,18 @@ export default {
     fontSize: 12,
     borderRadius: '7px 7px 0 0',
     boxSizing: 'border-box',
+    flex: 8,
   },
-
+  entryTextUnit: {
+    backgroundColor: '#EEEEEE',
+    padding: 10,
+    fontSize: 12,
+    borderRadius: '0 7px 7px 0',
+    boxSizing: 'border-box',
+    fontWeight: 600,
+    textAlign: 'left',
+    flex: 1,
+  },
   entryTags: {
     backgroundColor: '#EEEEEE',
     boxSizing: 'border-box',

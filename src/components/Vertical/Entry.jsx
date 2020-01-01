@@ -32,9 +32,6 @@ class Entry extends Component {
       <Hammer onTap={this.onTap}>
         <div style={style.entryCard}>
 
-          <div style={{...style.entryRow, ...style.categoryRow}}>
-            <div>{name}</div>
-          </div>
 
           <div style={{...style.entryRow, ...style.TextRow}}>
             <div style={style.entryTextWrap}>
@@ -43,6 +40,9 @@ class Entry extends Component {
               </div>
               <div style={style.entryText}>
                 {text || <span style={{color: '#BDBDBD'}}>description</span>}
+              </div>
+              <div style={style.entryTextUnit}>
+                {null || <span style={{color: '#BDBDBD'}}>3S</span>}
               </div>
             </div>
           </div>

@@ -16,6 +16,11 @@ class EntriesList extends Component {
 
     return (
       <div>
+        <div style={style.dateNavigationWrap}>
+          <div style={style.navtabDate}>2019</div>
+          <div style={style.navtabDate}>DEC</div>
+        </div>
+
         {program.weekChunks().map(({ date, chunk }) => (
           <div key={date.toLocaleString()} style={{}}>
             <div style={{textAlign: 'center', padding: 10 }}>
